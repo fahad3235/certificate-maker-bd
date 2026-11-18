@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Maker BD &mdash; design, preview &amp; print certificates</title>
+<meta name="description" content="Offline certificate maker: 4 templates, live A4 preview, issue history, print to PDF. Fully offline.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <h1 id="app-title">Certificate Maker BD</h1>
+        <p id="app-sub" class="sub">Design, preview &amp; print beautiful certificates &mdash; offline</p>
+      </div>
+      <button id="lang-btn" class="btn">&#2476;&#2494;&#2434;&#2482;&#2494;</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="make">Make</button>
+      <button class="tab" data-tab="issued">Issued</button>
+      <button class="tab" data-tab="data">Data</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="toast" class="toast" style="display:none" role="status"></div>
+
+  <section id="pane-make">
+    <div class="make-grid">
+      <form id="cert-form" class="card" novalidate>
+        <h2 id="form-title">Certificate details</h2>
+        <div id="form-errors" class="errors" style="display:none" role="alert"></div>
+
+        <label id="lb-name" for="f-name">Recipient name</label>
+        <input id="f-name" type="text" maxlength="80" placeholder="e.g. Ishan Ahmed Fahad" autocomplete="off">
+
+        <label id="lb-title" for="f-title">Course / event / achievement title</label>
+        <input id="f-title" type="text" maxlength="120" placeholder="e.g. Web Development Bootcamp 2026" autocomplete="off">
+
+        <label id="lb-line" for="f-line">Achievement line (optional)</label>
+        <input id="f-line" type="text" maxlength="160" placeholder="e.g. has successfully completed with distinction" autocomplete="off">
+
+        <label id="lb-issuer" for="f-issuer">Issuing organisation</label>
+        <input id="f-issuer" type="text" maxlength="80" placeholder="e.g. Team Probaho" autocomplete="off">
+
+        <label id="lb-signer" for="f-signer">Signer name (optional)</label>
+        <input id="f-signer" type="text" maxlength="80" placeholder="e.g. Md. Mehedi Hassan" autocomplete="off">
+
+        <div class="row2">
+          <div>
+            <label id="lb-date" for="f-date">Issue date</label>
+            <input id="f-date" type="date" min="1900-01-01" max="2100-12-31">
+          </div>
+          <div>
+            <label id="lb-orient" for="f-orient">Orientation</label>
+            <select id="f-orient"></select>
+          </div>
+        </div>
+
+        <label id="lb-template" for="f-template">Template</label>
+        <select id="f-template"></select>
+
+        <div class="btn-row">
+          <button type="button" id="btn-issue" class="btn primary">Issue certificate</button>
+          <button type="button" id="btn-sample" class="btn">Load sample</button>
+          <button type="button" id="btn-clear" class="btn">Clear form</button>
+        </div>
+      </form>
+
+      <div class="preview-col">
+        <div class="preview-head">
+          <h2 id="preview-title">Live preview</h2>
+          <button type="button" id="btn-print" class="btn primary">Print / Save as PDF</button>
+        </div>
+        <div id="cert-sheet" class="cert-sheet tpl-classic ori-landscape">
+          <div class="cert-inner">
+            <div class="cert-seal" aria-hidden="true">&#9733;</div>
+            <p class="cert-word" id="pv-word">CERTIFICATE</p>
+            <p class="cert-presented" id="pv-presented">This certificate is proudly presented to</p>
+            <p class="cert-name" id="pv-name">&mdash;</p>
+            <p class="cert-line" id="pv-line"></p>
+            <p class="cert-title" id="pv-title">&mdash;</p>
+            <div class="cert-foot">
+              <div class="cert-issuer"><span id="pv-issuer">&mdash;</span></div>
+              <div class="cert-date"><span id="pv-date">&mdash;</span></div>
+            </div>
+            <div class="cert-signer" id="pv-signer-row"><span class="sig-line"></span><span id="pv-signer"></span></div>
+          </div>
+        </div>
+        <p class="hint">Tip: Print &rarr; Destination &ldquo;Save as PDF&rdquo;, paper A4, margins None, background graphics on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pane-issued" style="display:none">
+    <div class="card">
+      <div class="issued-head">
+        <h2 id="issued-title">Issued certificates</h2>
+        <span class="count-badge"><span id="issued-count">0</span></span>
+      </div>
+      <input id="search-issued" type="search" placeholder="Search issued certificates&hellip;" autocomplete="off">
+      <div id="issued-list"></div>
+    </div>
+  </section>
+
+  <section id="pane-data" style="display:none">
+    <div class="card">
+      <h2 id="data-title">Your data</h2>
+      <p id="data-text">Issued certificates are stored only in this browser (localStorage). Export a backup or import one here.</p>
+      <div class="btn-row">
+        <button type="button" id="btn-export" class="btn">Export JSON</button>
+        <button type="button" id="btn-import" class="btn">Import JSON</button>
+        <button type="button" id="btn-erase" class="btn danger">Erase all</button>
+      </div>
+      <input id="import-file" type="file" accept="application/json,.json" hidden>
+    </div>
+  </section>
+
+  <footer><p id="foot">Offline tool &mdash; nothing leaves your browser. Print from your browser to save as PDF. Verify the details before issuing.</p></footer>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

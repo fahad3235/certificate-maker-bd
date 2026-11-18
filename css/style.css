@@ -1,0 +1,102 @@
+/* certificate-maker-bd - porcelain + navy, responsive, print-first */
+* { box-sizing: border-box; }
+:root {
+  --navy: #14213d; --teal: #0f766e; --gold: #b8860b; --ink: #1f2937;
+  --muted: #6b7280; --line: #e5e7eb; --bg: #f4f1ea; --card: #ffffff;
+  --danger: #b91c1c; --ok: #15803d;
+}
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Bengali", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+.top { background: var(--navy); color: #fff; padding: 18px 0 0; }
+.head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+h1 { margin: 0; font-size: 1.6rem; letter-spacing: .02em; }
+.sub { margin: 4px 0 0; opacity: .85; font-size: .95rem; }
+.tabs { display: flex; gap: 4px; margin-top: 16px; }
+.tab { background: transparent; border: none; color: #cbd5e1; font: inherit; font-weight: 600; padding: 10px 18px; cursor: pointer; border-bottom: 3px solid transparent; }
+.tab.on { color: #fff; border-bottom-color: #f59e0b; }
+.btn { font: inherit; font-weight: 600; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.btn:hover { border-color: var(--navy); }
+.btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn.danger { color: var(--danger); border-color: #fecaca; }
+.btn.small { padding: 6px 10px; font-size: .85rem; }
+#lang-btn { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.35); }
+main { padding: 20px 0 40px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.make-grid { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+h2 { margin: 0 0 14px; font-size: 1.15rem; }
+label { display: block; font-weight: 600; font-size: .9rem; margin: 14px 0 5px; }
+input[type=text], input[type=date], input[type=search], select {
+  width: 100%; font: inherit; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: var(--ink);
+}
+input:focus, select:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: var(--teal); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.errors { background: #fef2f2; border: 1px solid #fecaca; color: var(--danger); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: .92rem; }
+.toast { background: var(--ok); color: #fff; padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-weight: 600; }
+.preview-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+.preview-head h2 { margin: 0; }
+.hint { color: var(--muted); font-size: .88rem; margin: 10px 2px 0; }
+
+/* ---- certificate sheet ---- */
+.cert-sheet { width: 100%; aspect-ratio: 297 / 210; background: #fffdf7; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; position: relative; }
+.cert-sheet.ori-portrait { aspect-ratio: 210 / 297; max-width: 520px; margin: 0 auto; }
+.cert-inner { position: absolute; inset: 4.5%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4%; border: 3px double var(--gold); }
+.cert-seal { font-size: 2rem; color: var(--gold); line-height: 1; }
+.cert-word { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.4rem, 3.4vw, 2.6rem); letter-spacing: .18em; margin: .35em 0 .1em; color: var(--navy); }
+.cert-presented { margin: .2em 0; color: var(--muted); font-style: italic; font-size: clamp(.7rem, 1.4vw, 1rem); }
+.cert-name { font-family: Georgia, serif; font-size: clamp(1.3rem, 3.2vw, 2.3rem); font-weight: 700; margin: .15em 0; color: var(--ink); border-bottom: 1px solid #d1d5db; padding-bottom: .15em; min-width: 60%; }
+.cert-line { margin: .3em 0 0; font-size: clamp(.7rem, 1.4vw, 1rem); color: var(--muted); font-style: italic; }
+.cert-title { font-family: Georgia, serif; font-size: clamp(.95rem, 2vw, 1.45rem); font-weight: 700; margin: .4em 0 .6em; color: var(--navy); }
+.cert-foot { display: flex; justify-content: space-between; width: 78%; margin-top: auto; font-size: clamp(.7rem, 1.4vw, .95rem); }
+.cert-issuer, .cert-date { border-top: 1px solid #9ca3af; padding-top: .3em; min-width: 30%; }
+.cert-signer { margin-top: .9em; font-family: Georgia, serif; font-style: italic; font-size: clamp(.75rem, 1.5vw, 1rem); }
+.cert-signer .sig-line { display: block; width: 180px; margin: 0 auto .2em; border-top: 1px solid #9ca3af; }
+/* templates */
+.tpl-modern .cert-inner { border: 3px solid var(--teal); border-top: 14px solid var(--teal); font-family: system-ui, sans-serif; }
+.tpl-modern .cert-word, .tpl-modern .cert-name, .tpl-modern .cert-title { font-family: system-ui, sans-serif; color: var(--teal); }
+.tpl-modern .cert-seal { color: var(--teal); }
+.tpl-academic .cert-inner { border: 4px solid var(--navy); outline: 1px solid var(--navy); outline-offset: 5px; }
+.tpl-academic .cert-word { color: var(--navy); }
+.tpl-academic .cert-seal { color: var(--navy); }
+.tpl-minimal .cert-inner { border: 1px solid #d6d3d1; background: #fff; }
+.tpl-minimal .cert-seal { display: none; }
+.tpl-minimal .cert-word { letter-spacing: .32em; font-weight: 400; color: #44403c; }
+.tpl-minimal .cert-name { border-bottom: none; font-weight: 400; }
+.tpl-minimal .cert-title { font-weight: 400; }
+
+/* ---- issued list ---- */
+.issued-head { display: flex; align-items: center; gap: 10px; }
+.issued-head h2 { margin: 0; }
+.count-badge { background: var(--navy); color: #fff; border-radius: 999px; padding: 2px 12px; font-weight: 700; }
+#search-issued { margin: 14px 0; }
+.issued-card { display: flex; justify-content: space-between; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+.ic-main { display: flex; flex-direction: column; min-width: 0; }
+.ic-main span { color: var(--muted); font-size: .92rem; overflow-wrap: anywhere; }
+.ic-main small { color: var(--muted); font-size: .82rem; }
+.ic-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.empty { color: var(--muted); }
+footer { margin-top: 28px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-top: 14px; }
+
+@media (max-width: 900px) {
+  .make-grid { grid-template-columns: 1fr; }
+  .preview-head { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 1.3rem; }
+  .row2 { grid-template-columns: 1fr; }
+  .issued-card { flex-direction: column; align-items: stretch; }
+  .ic-btns { justify-content: flex-start; }
+  .cert-foot { width: 92%; }
+}
+
+/* ---- print: only the certificate ---- */
+@media print {
+  body { background: #fff; }
+  .top, .card, .preview-head, .hint, footer, #toast, #pane-issued, #pane-data { display: none !important; }
+  main, .wrap { padding: 0; max-width: none; }
+  .make-grid { display: block; }
+  .cert-sheet { border: none; width: 100%; aspect-ratio: auto; height: 100vh; }
+  .cert-sheet.ori-portrait { max-width: none; }
+  @page { size: A4 landscape; margin: 0; }
+}
